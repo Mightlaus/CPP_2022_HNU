@@ -1,0 +1,22 @@
+
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "g++.exe build active file",
+            "command": "D:\\mingw64\\bin\\g++.exe",
+            "args": [
+                "${file}",
+                "-o",    // 指定输出文件名，不加该参数则默认输出a.exe，Linux下默认a.out
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "-g",    // 生成和调试有关的信息
+                // "-Wall", // 开启额外警告
+                "-static-libgcc",     // 静态链接libgcc，一般都会加上
+            ], 
+            "options": {
+                "cwd": "D:\\mingw64\\bin"
+            }
+        }
+    ],
+    "version": "2.0.0"
+}

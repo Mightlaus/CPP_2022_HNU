@@ -1,0 +1,133 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include",
+						"D:/Devcpp/Dev-Cpp/MinGW64/include",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include-fixed",
+						"D:/Devcpp/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+					],
+					"linkDirectories" : 
+					[
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc",
+						"D:/Devcpp/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"pthread",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex"
+					]
+				},
+				"path" : "D:/Devcpp/Dev-Cpp/MinGW64/bin/gcc.exe",
+				"version" : "4.9.2"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++/x86_64-w64-mingw32",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++/backward",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include",
+						"D:/Devcpp/Dev-Cpp/MinGW64/include",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include-fixed",
+						"D:/Devcpp/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+					],
+					"linkDirectories" : 
+					[
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc",
+						"D:/Devcpp/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib",
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"D:/Devcpp/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/libstdc++.a",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"pthread",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex"
+					]
+				},
+				"path" : "D:/Devcpp/Dev-Cpp/MinGW64/bin/c++.exe",
+				"version" : "4.9.2"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"implicit" : {},
+				"path" : "D:/Devcpp/Dev-Cpp/MinGW64/bin/windres.exe"
+			},
+			"language" : "RC",
+			"sourceFileExtensions" : 
+			[
+				"rc",
+				"RC"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}
