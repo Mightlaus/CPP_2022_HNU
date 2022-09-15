@@ -1,15 +1,22 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
+#include <regex>
 
+
+// for regex expression details, see:
+// https://linuxhint.com/regular-expression-basics-cpp/
 
 using namespace std;
 
-int main()
-{
-    string name, school;
-    cin >> name >> school;
+int main(){
+    float a,b,c,s;
+    scanf("%f, %f, %f", &a, &b, &c);
+    s = (a + b + c) / 2;
 
-    cout << "Your name is " << name << ','
-         << "and study in " << school << endl;
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
+
+    cout << "s: " << s << endl;
 
 }
