@@ -9,6 +9,8 @@ int main(){
 
     cin >> income >> sp_dedct;
 
+	income = income>=5000? income-5000 : 0;
+	
     if(income<=3000){
         rate = 0.03;
         f_dedct = 0;
