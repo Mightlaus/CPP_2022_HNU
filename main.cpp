@@ -1,48 +1,35 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
+#include <vector>
 
 using namespace std;
 
 int main(){
-    int income, sp_dedct, f_dedct=0;
-    double rate=0.03;
+    const int rest=1;
+    int depth, speed, slide;
 
-    cin >> income >> sp_dedct;
+    vector<int> time;
+    do{
+        int curTime=0;
+        int curLoc=0;
+        cin >> depth >> speed >> slide;
 
-    if(income<=3000){
-        rate = 0.03;
-        f_dedct = 0;
-    }
-    else if(income<=12000){
-        rate = 0.1;
-        f_dedct = 210;
-    }
-    else if(income<=25000){
-        rate = 0.2;
-        f_dedct = 1410;
-    }
-    else if(income<=35000){
-        rate = 0.25;
-        f_dedct = 2660;
-    }
-    else if(income<=55000){
-        rate = 0.3;
-        f_dedct = 4410;
-    }
-    else if(income<=80000){
-        rate = 0.35;
-        f_dedct = 7160;
-    }
-    else if(income>=80000.01){
-        rate = 0.45;
-        f_dedct = 15160;
-    }
+        while(curLoc<=depth){
+            curLoc += speed;
+            curTime++;
+            if(curLoc>=depth){
+                time.push_back(curTime);
+                break;
+            }
 
-    double final = (income- sp_dedct) * rate - f_dedct;
+            curTime += rest;
+            curLoc -= slide;
+        }
+    } while(depth || speed || slide);
 
-    if(final>=0) {
-        cout << final;
-    } else {
-        cout << 0;
+
+    for(int ix : time){
+        cout << time[ix] << "\n";
     }
 }
