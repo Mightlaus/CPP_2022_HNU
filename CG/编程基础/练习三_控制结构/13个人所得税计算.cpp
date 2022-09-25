@@ -9,7 +9,7 @@ int main(){
 
     cin >> income >> sp_dedct;
 
-	income = income>=5000? income-5000 : 0;
+	income -= 5000+sp_dedct;
 	
     if(income<=3000){
         rate = 0.03;
@@ -40,7 +40,7 @@ int main(){
         f_dedct = 15160;
     }
 
-    double final = (income- sp_dedct) * rate - f_dedct;
+    double final = income * rate - f_dedct;
 
     if(final>=0) {
         cout << final;
