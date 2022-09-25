@@ -25,13 +25,18 @@ int main() {
         }
     }
 
-    if (stoll(cnv_num) > 2147483647 || stoll(cnv_num) < -21447483648) {
+    if (stoll(cnv_num) > 2147483647 || stoll(cnv_num) < -2147483648) {
         cout << 0;
     } else {
+        bool bErZero=true;  // erase zero in the front
         for(char str : cnv_num){
-            if(str!='0'){
+            if(str=='0' && bErZero){
+
+            } else {
+                bErZero = false;
                 cout << str;
             }
+
         }
     }
 
