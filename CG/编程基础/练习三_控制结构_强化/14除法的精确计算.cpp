@@ -17,6 +17,7 @@ int main() {
     itg = A / B;
     res = A % B;
 
+//    calculate integer part
     if (itg == 0) {  // precision=0
         outcome += "0.";
     } else if (itg > 0) {  // precision <= -1
@@ -24,11 +25,13 @@ int main() {
         outcome += ".";
     }
 
+//    calculate decimal part
     while (curPrecision < precision) {
         // precision >= 1
         curPrecision ++;
         res *= 10;
 
+//        handle 0
         while(!(res / B) && curPrecision<precision){
             res *= 10;
             curPrecision ++;
@@ -40,6 +43,6 @@ int main() {
     }
 
 
-    printf("\nprecision:%d, \n%s", curPrecision, outcome.c_str());
-
+//    printf("\nprecision:%d, \n%s", curPrecision, outcome.c_str());
+    cout << outcome;
 }

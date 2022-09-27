@@ -16,7 +16,8 @@ int main() {
         num.push_back(curNum);
     }
 
-    if (count(color.begin(), color.end(), colorInHand) || count(num.begin(), num.end(), numInHand)) {
+    if (count(color.begin(), color.end(), colorInHand) ||
+	 count(num.begin(), num.end(), numInHand)) {
         cout << "YES";
     } else {
         cout << "NO";
