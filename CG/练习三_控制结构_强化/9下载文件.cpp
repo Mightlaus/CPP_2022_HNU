@@ -6,18 +6,36 @@
 using namespace std;
 
 int main() {
-    int n, curSpeed, finalTime, totalFee, freeDowTime, curTime;
-
+    int n;
     cin >> n;
 
-    for (int ni = 0; ni < n; ++ni) {
-        cin >> finalTime >> freeDowTime;
+    int Ti, Di; // Ti min with speed of Di
 
-        for (int ti = 0; ti < finalTime; ti++) {
-            cin >> curTime >> curSpeed;
+    for (int time = 0; time < n; ++time) {
+
+        int N, K, totalFee = 0;
+        bool usedUp = false;
+        cin >> N >> K;  // K min free time, total N min
+
+        for (int Ni = 0; Ni < N; ++Ni) {
+            cin >> Ti >> Di;
+
+            if (K <= Ti && !usedUp) {  // will use up in this turn
+                Ti = Ti - K;
+                K = 0;
+                usedUp = true;
+            } else if (!usedUp) {  // not use up yet
+                K -= Ti;
+                Ti = 0;
+            }
+            totalFee += Ti * Di;
 
         }
 
-        
+        cout << totalFee << endl;
+
+
     }
+
+
 }
