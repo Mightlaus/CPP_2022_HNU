@@ -20,7 +20,7 @@ long double constrain(long double num) {
 }
 
 long double factorial(int num) {
-    int cnt = 1;
+    long double cnt = 1;
     for (int i = 1; i <= num; ++i) {
         cnt *= i;
     }

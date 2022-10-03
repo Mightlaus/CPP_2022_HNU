@@ -14,12 +14,12 @@ int main() {
     int n;
     cin >> n;
 
-    int cnt=0;
+    int cnt = 0;
 
-    for(int i=0; i<n; ++i){
+    for (int i = 0; i < n; ++i) {
         int tmpNum;
         cin >> tmpNum;
-        cnt += is_lucky_num(tmpNum)? tmpNum : 0;
+        cnt += is_lucky_num(tmpNum) ? tmpNum : 0;
     }
 
     cout << cnt;
