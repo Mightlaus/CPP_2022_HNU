@@ -1,93 +1,44 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-bool check(int place, int moLst[], int iptMo[]) {
-    if (moLst[place] == iptMo[place]) {
-        return true;
-    } else {
-        return false;
+bool conflict(int lst1[], int lst2[], int size, int num1, int num2){
+    for (int idx = 0; idx < size; ++idx) {
+        if((lst1[idx]==num1+1 && lst2[idx]==num2+1) || (lst1[idx]==num2+1 && lst2[idx]==num1+1)){
+            return true;
+        }
     }
+    return false;
 }
 
 int main() {
-    int n;
-    cin >> n;
-    int iptMo[n];
+    int n, k;
+    cin >> n >> k;  // n monkeys, k pairs conflict
+
+    int mokSkill[n];
+
     for (int i = 0; i < n; ++i) {
-        int curMo;
-        cin >> curMo;
-        iptMo[i] = curMo;
+        cin >> mokSkill[i];
     }
 
-    int nMo_nMo[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
-                     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int nMo_sMo[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
-                     31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int sMo_nMo[] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
-                     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int confPair1[k], confPair2[k];
+    for (int i = 0; i < k; ++i) {
+        cin >> confPair1[i] >> confPair2[i];
+    }
 
+    int teachers[n] = {0};
 
-    bool finished = true;
-
-    // nMo_nMo
-    for (int comBegin = 0; comBegin < 24; ++comBegin) {
-        int comIdx = comBegin;
-        for (int iptIdx = 0; iptIdx < n; ++iptIdx) {
-            if (nMo_nMo[comIdx] == iptMo[iptIdx] && comIdx < 24) {
-                comIdx++;
-                finished = true;
-            } else {
-                finished = false;
-                break;
+    for (int curMok = 0; curMok < n; ++curMok) {
+        int curTeacher = 0;
+        for (int stu = 0; stu < n; ++stu) {
+            if(mokSkill[curMok]>mokSkill[stu] &&
+               !conflict(confPair1, confPair2, k, curMok, stu)){
+                teachers[curMok] += 1;
             }
         }
-
-        if (finished)
-            break;
     }
 
-    // nMo_sMo
-    if (!finished) {
-        for (int comBegin = 0; comBegin < 24; ++comBegin) {
-            int comIdx = comBegin;
-            for (int iptIdx = 0; iptIdx < n; ++iptIdx) {
-                if (nMo_sMo[comIdx] == iptMo[iptIdx] && comIdx < 24) {
-                    comIdx++;
-                    finished = true;
-                } else {
-                    finished = false;
-                    break;
-                }
-            }
-
-            if (finished)
-                break;
-        }
+    for(int teacher : teachers){
+        cout << teacher << " ";
     }
-
-    // sMo_nMo
-    if (!finished) {
-        for (int comBegin = 0; comBegin < 24; ++comBegin) {
-            int comIdx = comBegin;
-            for (int iptIdx = 0; iptIdx < n; ++iptIdx) {
-                if (sMo_nMo[comIdx] == iptMo[iptIdx] && comIdx < 24) {
-                    comIdx++;
-                    finished = true;
-                } else {
-                    finished = false;
-                    break;
-                }
-            }
-
-            if (finished)
-                break;
-        }
-    }
-
-
-    cout << (finished ? "Yes" : "No");
-
-
 }
