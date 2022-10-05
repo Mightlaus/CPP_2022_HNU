@@ -1,3 +1,7 @@
-//
-// Created by Ding Ruogu on 2022/10/2.
-//
+#include <iostream>
+
+using namespace std;
+
+int main() {
+
+}
