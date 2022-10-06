@@ -36,9 +36,9 @@ int main() {
 
         // check if newBd is next to the old
         bool nextTo = false;
-        for (auto & it : oldBd) {
-            if (curLeft == it.first + it.second / 2 || curLeft == it.first - it.second / 2 ||
-                curRight - t / 2 == it.first + it.second / 2 || curRight + t / 2 == it.first - it.second / 2) {
+        for (map<int, int>::iterator it = oldBd.begin(); it != oldBd.end(); it++) {
+            if (curLeft == it->first + it->second / 2 || curLeft == it->first - it->second / 2 ||
+                curRight - t / 2 == it->first + it->second / 2 || curRight + t / 2 == it->first - it->second / 2) {
                 nextTo = true;
                 break;
             }
@@ -48,14 +48,14 @@ int main() {
 
         // check if overlap
         bool overLap = false;
-        for (auto & it : oldBd) {
-            if (it.first < curLoc) {
-                if (it.first + it.second / 2 > curLeft) {
+        for (map<int, int>::iterator it = oldBd.begin(); it != oldBd.end(); it++) {
+            if (it->first < curLoc) {
+                if (it->first + it->second / 2 > curLeft) {
                     overLap = true;
                     break;
                 }
-            } else if (it.first > curLoc) {
-                if (it.first - it.second / 2 < curRight) {
+            } else if (it->first > curLoc) {
+                if (it->first - it->second / 2 < curRight) {
                     overLap = true;
                     break;
                 }
