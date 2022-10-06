@@ -4,70 +4,51 @@
 
 using namespace std;
 
-int main() {
+void pair_switch_ascend(pair<int, int> &bd1, pair<int, int> &bd2);
 
-    // process data
+int main() {
+    // data process
     int n, t;
     cin >> n >> t;  // already n buildings; newBd with t width;
-    map<int, int> oldBd;
+    vector<pair<int, int>> oldBds;
 
-    int newBdCnt = 2;
-
-    int maxLoc = -20001, minLoc = 20001;
     for (int i = 0; i < n; ++i) {
         int loc, width;
         cin >> loc >> width;
-
-        if (maxLoc < loc) {
-            maxLoc = loc;
-        }
-        if (minLoc > loc) {
-            minLoc = loc;
-        }
-
-        oldBd.insert(pair<int, int>(loc, width));
+        oldBds.push_back(pair<int, int>(loc, width));
     }
 
-
-    for (int curLoc = minLoc + oldBd[minLoc] / 2; curLoc <= maxLoc - oldBd[maxLoc] / 2; ++curLoc) {
-        int curLeft = curLoc - t / 2;
-        int curRight = curLoc + t / 2;
-
-
-        // check if newBd is next to the old
-        bool nextTo = false;
-        for (map<int, int>::iterator it = oldBd.begin(); it != oldBd.end(); it++) {
-            if (curLeft == it->first + it->second / 2 || curLeft == it->first - it->second / 2 ||
-                curRight - t / 2 == it->first + it->second / 2 || curRight + t / 2 == it->first - it->second / 2) {
-                nextTo = true;
-                break;
-            }
-
+    // bubble ascending sort
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            pair_switch_ascend(oldBds[i], oldBds[j]);
         }
-        if (!nextTo) continue;
-
-        // check if overlap
-        bool overLap = false;
-        for (map<int, int>::iterator it = oldBd.begin(); it != oldBd.end(); it++) {
-            if (it->first < curLoc) {
-                if (it->first + it->second / 2 > curLeft) {
-                    overLap = true;
-                    break;
-                }
-            } else if (it->first > curLoc) {
-                if (it->first - it->second / 2 < curRight) {
-                    overLap = true;
-                    break;
-                }
-            }
-        }
-        if (overLap) continue;
-
-        newBdCnt += 1;
-
     }
 
-    cout << newBdCnt;
+    // judge place
+    int newBdCnt = 2;
+    for (int gapIdx = 1; gapIdx <= n - 1; ++gapIdx) {
+        double gapLeftEdge = oldBds[gapIdx - 1].first + (double) oldBds[gapIdx - 1].second / 2;
+        double gapRightEdge = oldBds[gapIdx].first - (double) oldBds[gapIdx].second / 2;
 
+        if (gapRightEdge - gapLeftEdge >= t) {
+            if (gapRightEdge - gapLeftEdge == t) {  // just enough to hold one
+                newBdCnt++;
+            } else {  // enough to hold on both sides
+                newBdCnt += 2;
+            }
+        }
+    }
 
+    cout << newBdCnt << endl;
+}
+
+void pair_switch_ascend(pair<int, int> &bd1, pair<int, int> &bd2) {
+    // ascending(bd2.loc > bd1.loc)
+    pair<int, int> tmp;
+    if (bd1.first > bd2.first) {
+        tmp = bd2;
+        bd2 = bd1;
+        bd1 = tmp;
+    }
 }
