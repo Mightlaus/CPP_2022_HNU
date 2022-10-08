@@ -1,60 +1,60 @@
 #include <iostream>
+#include <string>
+#include <vector>
+
+# define MAXSIZE 20
 
 using namespace std;
 
-bool finished(int irrigate[], int size){
-    for (int i = 0; i < size; ++i) {
-        if(irrigate[i]==0){
-            return false;
-        }
+// Returns the carry result of adding two numbers
+int carryOut(int num1, int num2, int carryIn = 0) {
+    if (num1 + num2 + carryIn > 9) {
+        return (num1 + num2 + carryIn) / 10;
+    } else {
+        return 0;
     }
-    return true;
 }
 
-void irrigateNow(int irrigate[], int size, int place, int time){
-    int begin, end;
-    if(place-time+1<=0){
-        begin = 0;
-    } else {
-        begin = place - time + 1;
-    }
-    if(place+time-1>=size-1){
-        end = size-1;
-    } else {
-        end = place + time - 1;
+// return the point of rearranged(reversed) int vector<int>
+vector<int> divide_nums(const string &strNums, int vSize = MAXSIZE) {
+    vector<int> rearranged(vSize, 0);
+
+
+    for (int strPlc = strNums.size() - 1, arrayPlc = 0; strPlc >= 0; strPlc--) {
+        rearranged[arrayPlc] = strNums[strPlc] - '0';
+        arrayPlc++;
     }
 
-    for(int thisPlace=begin; thisPlace<=end; thisPlace++){
-        irrigate[thisPlace] = 1;
-    }
+    return rearranged;
 }
+
+string add(const string& hugeNum1, const string& hugeNum2, int carryIn=0){
+
+    int maxSize = max(hugeNum1.size(), hugeNum2.size());
+    vector<int> addResult(maxSize+1, 0);
+
+    auto add1 = divide_nums(hugeNum1);
+    auto add2 = divide_nums(hugeNum2);
+
+    int curCarry = carryIn;
+    for (int i = 0; i < maxSize; ++i) {
+
+    }
+    
+}
+
 
 int main() {
-    int T;
-    cin >> T;
+    // generate two vectors to store two huge number
+    string str;
+    cin >> str;
+    auto hugeNum1= divide_nums(str);
+    cin >> str;
+    auto hugeNum2 = divide_nums((str));
 
-    for (int i = 0; i < T; ++i) {
-        int n, k;
-        cin >> n >> k;
 
-        int irrigate[n];
-        for(auto &irr:irrigate){
-            irr = 0;
-        }
 
-        int place[k];
-        for (int j = 0; j < k; ++j) {
-            cin >> place[j];
-        }
 
-        int timeCnt=0;
-        while(!finished(irrigate, n)){
-            timeCnt++;
-            for (int j = 0; j < k; ++j) {
-                irrigateNow(irrigate, n, place[j]-1, timeCnt);
-            }
-        }
 
-        cout << timeCnt  << endl;
-    }
+    return 0;
 }

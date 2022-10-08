@@ -2,29 +2,29 @@
 
 using namespace std;
 
-bool finished(int irrigate[], int size){
+bool finished(int irrigate[], int size) {
     for (int i = 0; i < size; ++i) {
-        if(irrigate[i]==0){
+        if (irrigate[i] == 0) {
             return false;
         }
     }
     return true;
 }
 
-void irrigateNow(int irrigate[], int size, int place, int time){
+void irrigateNow(int irrigate[], int size, int place, int time) {
     int begin, end;
-    if(place-time+1<=0){
+    if (place - time + 1 <= 0) {
         begin = 0;
     } else {
         begin = place - time + 1;
     }
-    if(place+time-1>=size-1){
-        end = size-1;
+    if (place + time - 1 >= size - 1) {
+        end = size - 1;
     } else {
         end = place + time - 1;
     }
 
-    for(int thisPlace=begin; thisPlace<=end; thisPlace++){
+    for (int thisPlace = begin; thisPlace <= end; thisPlace++) {
         irrigate[thisPlace] = 1;
     }
 }
@@ -38,7 +38,7 @@ int main() {
         cin >> n >> k;
 
         int irrigate[n];
-        for(auto &irr:irrigate){
+        for (auto &irr: irrigate) {
             irr = 0;
         }
 
@@ -47,14 +47,14 @@ int main() {
             cin >> place[j];
         }
 
-        int timeCnt=0;
-        while(!finished(irrigate, n)){
+        int timeCnt = 0;
+        while (!finished(irrigate, n)) {
             timeCnt++;
             for (int j = 0; j < k; ++j) {
-                irrigateNow(irrigate, n, place[j]-1, timeCnt);
+                irrigateNow(irrigate, n, place[j] - 1, timeCnt);
             }
         }
 
-        cout << timeCnt  << endl;
+        cout << timeCnt << endl;
     }
 }
