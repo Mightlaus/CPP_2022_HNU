@@ -6,8 +6,27 @@
 
 using namespace std;
 
-// Returns the carry result of adding two numbers
-int carryOut(int num1, int num2, int carryIn = 0) {
+// erase head zero of a string
+string erase_zero(const vector<int>& numVec){
+    string result;
+
+    bool beginAdd = false;
+    for(int i=numVec.size()-1; i>=0; --i){
+        int num = numVec[i];
+        if(num){
+            beginAdd = true;
+        }
+
+        if(beginAdd){
+            result += char ('0' + num) ;
+        }
+    }
+
+    return result;
+}
+
+// returns the carry result of adding two numbers
+int carry_out(int num1, int num2, int carryIn = 0) {
     if (num1 + num2 + carryIn > 9) {
         return (num1 + num2 + carryIn) / 10;
     } else {
@@ -28,7 +47,8 @@ vector<int> divide_nums(const string &strNums, int vSize = MAXSIZE) {
     return rearranged;
 }
 
-string add(const string& hugeNum1, const string& hugeNum2, int carryIn=0){
+// add two huge number
+string hugeAdd(const string& hugeNum1, const string& hugeNum2, int carryIn=0){
 
     int maxSize = max(hugeNum1.size(), hugeNum2.size());
     vector<int> addResult(maxSize+1, 0);
@@ -36,25 +56,28 @@ string add(const string& hugeNum1, const string& hugeNum2, int carryIn=0){
     auto add1 = divide_nums(hugeNum1);
     auto add2 = divide_nums(hugeNum2);
 
-    int curCarry = carryIn;
-    for (int i = 0; i < maxSize; ++i) {
-
+    for (int i = 0, curCarry = carryIn; i < maxSize; ++i) {
+        addResult[i] = (curCarry + add1[i] + add2[i]) % 10;
+        curCarry = carry_out(add1[i], add2[i], curCarry);
     }
-    
+
+    string result = erase_zero(addResult);
+    return result;
 }
 
 
 int main() {
     // generate two vectors to store two huge number
-    string str;
-    cin >> str;
-    auto hugeNum1= divide_nums(str);
-    cin >> str;
-    auto hugeNum2 = divide_nums((str));
+//    string str;
+//    cin >> str;
+//    auto hugeNum1= divide_nums(str);
+//    cin >> str;
+//    auto hugeNum2 = divide_nums((str));
 
+    string a = "123456789098765432";
+    string b = "234123432556789";
 
-
-
+    auto r = hugeAdd(a, b);
 
     return 0;
 }
