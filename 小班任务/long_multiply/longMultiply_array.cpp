@@ -36,8 +36,12 @@ int main() {
     }
     arr2Len = pos;
 
-    int ansSizeMax = arr1Len + arr2Len;
-    int ans[ansSizeMax];
+    // set ans
+    int ansSize = arr1Len + arr2Len;
+    if(!(arr1[0]*arr2[0]/10)){
+        ansSize--;
+    }
+    int ans[ansSize];
     for (int &a: ans) {
         a = 0;
     }
@@ -52,7 +56,7 @@ int main() {
     }
 
     // output
-    for (int idx = ansSizeMax - 1; idx >= 0; --idx) {
+    for (int idx = ansSize - 1; idx >= 0; --idx) {
         printf("%d", ans[idx]);
     }
 }
