@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// erase head zero of a string
+// erase head zeros and output a string
 string erase_zero(const vector<int> &numVec) {
     string result;
 
@@ -24,7 +24,7 @@ string erase_zero(const vector<int> &numVec) {
     return result;
 }
 
-// return the point of rearranged(reversed) int vector<int>
+// convert string to rearranged(reversed) vector<int>
 vector<int> str2vector(const string &strNums, int vSize = 2 * MAXSIZE) {
     vector<int> rearranged(vSize, 0);
 
@@ -79,19 +79,14 @@ string huge_multiply(string num1, string num2) {
     auto vNum1 = str2vector(num1, num1.size());
     auto vNum2 = str2vector(num2, num2.size());
 
-    vector<string> multiContiner;
+    string result = "0";
     for (int i = 0; i < vNum2.size(); ++i) {
         string curResult;
         curResult = one_huge_multiply(num1, vNum2[i]);
         for (int j = 0; j < i; ++j) {
             curResult += '0';
         }
-        multiContiner.push_back(curResult);
-    }
-
-    string result = "0";
-    for (auto &i: multiContiner) {
-        result = huge_add(result, i);
+        result = huge_add(result, curResult);
     }
 
     return result;
@@ -105,9 +100,9 @@ int main() {
     cin >> str;
     string hugeNum2 = str;
 
-    string r = huge_multiply(hugeNum1, hugeNum2);
+    string calResult = huge_multiply(hugeNum1, hugeNum2);
 
-    cout << r << endl;
+    cout << calResult << endl;
 
     return 0;
 }

@@ -1,11 +1,10 @@
 #include <iostream>
 
-#define MAXSIZE 10
+#define MAXSIZE 200
 
 using namespace std;
 
 int main() {
-
     // input processing
     int arr1[MAXSIZE];
     int arr1Len = 0, arr2Len = 0;
@@ -54,6 +53,6 @@ int main() {
 
     // output
     for (int idx = ansSizeMax - 1; idx >= 0; --idx) {
-            printf("%d", ans[idx]);
+        printf("%d", ans[idx]);
     }
 }
