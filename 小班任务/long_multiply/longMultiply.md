@@ -1,5 +1,6 @@
 ## 方法1：数组进位乘
 [这个方法](https://stackoverflow.com/questions/26557981/how-can-i-multiply-really-big-numbers-c#:~:text=Use%20pan%20paper,15%5D%3D%7B4%2C2%2C3%2C4%2C2%2C3%2C%2C4%2C5%2C3%2C4%2C5%2C3%2C4%2C6%2C4%2C5%7D%3B)可能导致leading zero
+
 ```cpp
 arr1[10] = {3,4,4,3,4,2,3,4,3,2};
 arr2[15] = {4,2,3,4,2,3,4,5,3,4,5,3,4,6,4,5};
