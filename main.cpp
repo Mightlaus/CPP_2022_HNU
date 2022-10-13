@@ -1,38 +1,59 @@
 #include <iostream>
-#include <vector>
+#include <string>
 
-
+ 
 using namespace std;
 
-int main() {
-    int n, L, a;
-    cin >> n >> L >> a; // work L mins, n customers, relax a mins;
+int *getP(void);
 
-    int arvTime[n], servTime[n];
+int *getQ(void);
 
-    for (int i = 0; i < n; ++i) {
-        cin >> arvTime[i] >> servTime[i];
-    }
+int main()
 
-    int curTime = 0;
-    int relaxCnt = 0;
-    int custm = 0;
+{
 
-    while(custm<=n-1 && curTime<=L){
-        if(arvTime[custm] - curTime >= a){
-            int times = (arvTime[custm] - curTime) / a;
-            relaxCnt += times;
-            curTime = arvTime[custm] + servTime[custm];
-        } else {
-            curTime = arvTime[custm] + servTime[custm];
-        }
+    int *p, *q;
 
-        custm++;
-    }
+    p=getP();
 
-    if(curTime<=L){
-        relaxCnt += (L-curTime) / a;
-    }
+    cout<<p[0]<<" "<<p[1]<<endl;
 
-    cout << relaxCnt;
+    q=getQ();
+
+    cout<<q[0]<<" "<<q[1]<<endl;
+	string str("123456sdf");
+	
+	
+    return 0;
+    
+   
+
+}
+
+
+
+int *getP(void)
+
+{
+
+    int *s=new int[2];
+
+    s[0]=1, s[1]=2;
+
+    return s;
+
+}
+
+
+
+int *getQ(void)
+
+{
+
+    int s[2];
+
+    s[0]=1, s[1]=2;
+
+    return s;
+
 }
