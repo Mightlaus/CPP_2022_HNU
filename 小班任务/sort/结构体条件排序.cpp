@@ -33,7 +33,7 @@ int main() {
         }
         cin >> age >> tili >> zhili >> wuli;
 
-        struct WUJIANG wujiang={name, age, tili, wuli, zhili};
+        WUJIANG wujiang={name, age, tili, wuli, zhili};
 
         vec.push_back(wujiang);
     }

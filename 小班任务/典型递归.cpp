@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
-
+#include <string>
 
 using namespace std;
 
-// 阶乘--返回结果进入下一次运算
+// 阶乘
 int jie(int n) {
     if (n == 1) {
         return 1;
@@ -13,7 +13,7 @@ int jie(int n) {
     }
 }
 
-// fib数列--static 动态存储
+// fib数列
 int fib(int n) {
     static vector<int> db(n, -1);
     if (n == 0) {
@@ -28,7 +28,7 @@ int fib(int n) {
     }
 }
 
-// 求杨辉三角第n行第m列的数--返回结果作为下一次运算
+// 求杨辉三角第n行第m列的数
 int yang(int n, int m) {
     if (n == 1 and m==1) {
         return 1;
@@ -40,7 +40,7 @@ int yang(int n, int m) {
 }
 
 
-// 回文字符判断--指针
+// 回文字符判断
 bool huiwen(string str){
     int head=0, tail=str.size()-1;
     if(head>=tail){
@@ -54,7 +54,29 @@ bool huiwen(string str){
     }
 }
 
+// 字符串全排列
+void str_permutate(vector<char> &str, int from, int to){
+    if(to<=1){
+        return;
+    }
+    if (from==to){
+        for (int i = 0; i <= to; ++i) {
+            cout << str[i];
+        }
+        cout << endl;
+    } else {
+        for (int i = from; i <= to; ++i) {
+            swap(str[from], str[i]);
+            str_permutate(str, from+1, to);
+            swap(str[from], str[i]);
+        }
+    }
+}
+
 
 int main() {
-    cout << huiwen((string) "4845484") << endl;
+    vector<char> str({'a','b','c'});
+    str_permutate(str, 0, 2);
+
+    return 0;
 }
