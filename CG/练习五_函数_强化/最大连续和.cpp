@@ -39,6 +39,7 @@ void getMaxSum(int a[], int n, int &Left, int &Right) {
                 Right=end;
             }
         }
+
     }
     //end
 
