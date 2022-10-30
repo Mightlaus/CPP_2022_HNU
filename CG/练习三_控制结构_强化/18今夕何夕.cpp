@@ -1,65 +1,67 @@
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
 #include <vector>
 #include <algorithm>
-#include <math.h>
-#include <queue>
-#define LL long long
-
-// copy from https://blog.csdn.net/hurmishine/article/details/77161865
 
 using namespace std;
 
-int year,month,day;
-
-bool isLeap(int x)
-{
-    if((x%4==0&&x%100!=0)||x%400==0)
+bool run(int year){
+    if(!(year%4)and year%100){
         return true;
+    } else if(!(year%400)){
+        return true;
+    }
+
     return false;
 }
 
-int cal(int y,int m,int d)
-{
-    if(m<3)
-    {
-        m+=12;
-        --y;
+int dayofmon(int year, int month){
+    static vector<int> big({1, 3, 5, 7, 8, 10, 12});
+    static vector<int> small({4, 6, 9, 11});
+
+    if(count(big.begin(), big.end(), month)){
+        return 31;
+    } else if(count(small.begin(), small.end(), month)){
+        return 30;
+    } else if(run(year)){
+        return 29;
+    } else {
+        return 28;
     }
-    int W=(d+1+2*m+3*(m+1)/5+y+(y>>2)-y/100+y/400)%7;
-    return W==0?7:W;
 }
 
-bool judge(int x)
-{
-    //起始年是闰年，但是今年不是
-    if(isLeap(year)&&!isLeap(x)&&(month==2&&day==29))
-    {
-        return true;
-    }
-    return false;
-}
+
 
 int main()
 {
-    int t;
-    scanf("%d",&t);
-    while(t--)
-    {
-        scanf("%d-%d-%d",&year,&month,&day);
-        int pos=cal(year,month,day);
-        int kk;
-        for(int i=year+1;; ++i)
-        {
-            kk=cal(i,month,day);
-            if(judge(i)) continue;
-            if(kk==pos)
-            {
-                printf("%d\n",i);
-                break;
+    int y,m,d;
+    char r;
+    cin>>y>>r>>m>>r>>d;
+
+    int dayscnt=0;
+    do{
+        int curYear, curMon;
+        if(dayofmon(y,m)>=d)
+            dayscnt += dayofmon(y,m)-d;
+        else
+            dayscnt+=0;
+
+        for(int i=1; i<=11; ++i){
+            curMon=(m+i)%12;
+            if(curMon==0){
+                curMon=12;
             }
+            curYear = y+(m+i-1)/12;
+            dayscnt+=dayofmon(curYear, curMon);
         }
-    }
-    return 0;
+        y++;
+
+        if(dayofmon(y,m)>=d)
+            dayscnt+=d;
+        else
+            dayscnt+=dayofmon(y,m);
+
+
+    } while(dayscnt%7!=0 or dayofmon(y,m)<d);
+
+    cout << y;
 }
