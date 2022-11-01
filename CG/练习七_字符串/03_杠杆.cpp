@@ -30,11 +30,11 @@ int main() {
         }
 
         if(left>right){
-            cout << "left";
+            cout << "left"<<endl;
         } else if(right>left){
-            cout << "right";
+            cout << "right"<<endl;
         }else{
-            cout<<"balance";
+            cout<<"balance"<<endl;
         }
     }
 }

@@ -33,7 +33,7 @@ int main() {
         }
 
         if (count(have.begin(), have.end(), 1) == have.size()) {
-            cout << "YES" << endl;
+            cout << "Yes" << endl;
         } else {
             cout << "No";
             for (int i = 0; i < have.size() - 1; ++i) {
@@ -43,5 +43,6 @@ int main() {
             }
         }
 
+        cout<<endl;
     }
 }
