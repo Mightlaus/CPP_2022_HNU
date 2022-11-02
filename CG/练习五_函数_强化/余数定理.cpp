@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// (a*b)%c=(a%c)*(b%c)%c
 int mod(int a, int b, int p) {
     if (b <= 1) {
         return a % p;
