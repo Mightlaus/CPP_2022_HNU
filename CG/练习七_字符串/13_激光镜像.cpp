@@ -29,7 +29,7 @@ void shoot(Square &square){
 
 }
 
-void show_matrix(Square *i_matrix, int xLen, int yLen){
+void show_matrix(Square **i_matrix, int xLen, int yLen){
     for (int x = 0; x < xLen; ++x) {
         printf("\tx=%d", x);
     }
@@ -38,7 +38,7 @@ void show_matrix(Square *i_matrix, int xLen, int yLen){
     for (int y = 0; y < yLen; ++y) {
         printf("y=%d", y);
         for (int x = 0; x < xLen; ++x) {
-            printf("\t %d", (i_matrix+xLen*x+y)->solid);
+            printf("\t %c", i_matrix[x][y].solid ? '*' : '0');
         }
         cout<<endl;
     }
@@ -50,12 +50,17 @@ int main() {
     int n, m, k;
     cin >> n >> m >> k; // n rows(x), m columns(y), k black squares
 
-    Square matrix[m+2][n+2];
+//    Square matrix[m+2][n+2];
+
+    auto **matrix = new Square *[m+2];
+    for (int i = 0; i < m+2; i++) {
+        matrix[i] = new Square[n+2];
+    }
 
     // 初始化matrix
-    for (int x = 0; x < n + 2; ++x) {
-        for (int y = 0; y < m + 2; ++y) {
-            bool solid=0;
+    for (int x = 0; x < n+2; ++x) {
+        for (int y = 0; y < m+2; ++y) {
+            bool solid = 0;
             if(x==0 or y==0 or x==n+1 or y==m+1){ // 最外围全部实心
                 solid = 1;
             }
@@ -71,7 +76,7 @@ int main() {
 //        matrix[x+1][y+1] = Square{x+1, y+1, 0, 0, 1, 0};
 //    }
 
-    show_matrix(*matrix, n+2, m+2);
+    show_matrix(matrix, n+2, m+2);
 
     cout<<0;
 
