@@ -157,9 +157,9 @@ int main() {
         cin >> x >> y;
         p_matrix[x][y] = Square{x + 1, y + 1, 0, 0, 1, 0};
     }
-//
-//    cout << endl;
-//    show_matrix(p_matrix, n + 2, m + 2);
+
+    cout << endl;
+    show_matrix(p_matrix, n + 2, m + 2);
 
     // 准备入射
     int x, y;
@@ -172,8 +172,8 @@ int main() {
     while (1) {
         if (!begin_loop(p_matrix, x, y)) {
             shoot(p_matrix, x, y);
-//            cout << "#" << i++;
-//            show_matrix(p_matrix, n + 2, m + 2);
+            cout << "#" << i++;
+            show_matrix(p_matrix, n + 2, m + 2);
         } else {
             break;
         }
