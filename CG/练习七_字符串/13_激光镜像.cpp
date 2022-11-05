@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <windows.h>
 
 using namespace std;
 
@@ -100,15 +99,15 @@ void show_matrix(Square **p_matrix, int xLen, int yLen) {
 void initialize(Square **p_matrix, int x, int y, string dir) {
     int dirX, dirY;
     if (dir[0] == 'N') {
-        dirX = 1;
+        dirY = -1;
     } else {
-        dirX = -1;
+        dirY = 1;
     }
 
     if (dir[1] == 'E') {
-        dirY = 1;
+        dirX = 1;
     } else {
-        dirY = -1;
+        dirX = -1;
     }
 
     p_matrix[x][y].dirX = dirX;
@@ -116,7 +115,7 @@ void initialize(Square **p_matrix, int x, int y, string dir) {
 
 }
 
-bool is_loop(Square **p_matrix, int x, int y) {
+bool begin_loop(Square **p_matrix, int x, int y) {
     // 判断开始循环
     if (p_matrix[x][y].times >= 1 and p_matrix[x][y].solid == 0) { // 剔除边框和实心点
         for (auto trace: traceTrack) {
@@ -127,13 +126,13 @@ bool is_loop(Square **p_matrix, int x, int y) {
             }
         }
     }
-
     return false;
 }
 
 int main() {
     cin >> n >> m >> k; // n rows(x), m columns(y), k black squares
 
+    // 创建一个全局动态二维结构体数组
     auto **p_matrix = new Square *[m + 2];
     for (int i = 0; i < n + 2; i++) {
         p_matrix[i] = new Square[n + 2];
@@ -158,31 +157,36 @@ int main() {
         cin >> x >> y;
         p_matrix[x][y] = Square{x + 1, y + 1, 0, 0, 1, 0};
     }
-
-    cout<<endl;
-    show_matrix(p_matrix, n + 2, m + 2);
+//
+//    cout << endl;
+//    show_matrix(p_matrix, n + 2, m + 2);
 
     // 准备入射
-    int x, y, antiLoopCnt = 0;
+    int x, y;
     string dir;
     cin >> x >> y >> dir;
     initialize(p_matrix, x, y, dir);
 
     // 入射
-    int i=0;
+    int i = 0;
     while (1) {
-        if (!is_loop(p_matrix, x, y)) {
-            i++;
+        if (!begin_loop(p_matrix, x, y)) {
             shoot(p_matrix, x, y);
-//            Sleep(1000);
-//            system("cls");
-            cout<<"#"<<i;
-            show_matrix(p_matrix, n+2, m+2);
+//            cout << "#" << i++;
+//            show_matrix(p_matrix, n + 2, m + 2);
         } else {
-            cout<<i;
             break;
         }
     }
 
-
+    // 统计个数
+    int cnt = 0;
+    for (int x = 0; x < n + 1; ++x) {
+        for (int y = 0; y < m + 1; ++y) {
+            if (!p_matrix[x][y].solid and p_matrix[x][y].times >= 1) {
+                cnt++;
+            }
+        }
+    }
+    cout << cnt;
 }
