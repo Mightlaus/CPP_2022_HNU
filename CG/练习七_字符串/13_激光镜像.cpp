@@ -6,13 +6,14 @@
 using namespace std;
 
 /*
-         ------>x(n)
+         ------>x(n) E
          |
          |
          |
-         y(m)
+         y(m) N
  */
 
+int n, m, k;
 struct Square {
     int x; // 位置x
     int y; // 位置y
@@ -22,7 +23,15 @@ struct Square {
     int times; // 被入射次数
 };
 
-void shoot(Square **matrix, int x, int y) {
+struct Trace{
+    int x;
+    int y;
+    int dirX;
+    int dirY;
+};
+vector<Trace> traceTrack;
+
+void shoot(Square **p_matrix, int &x, int &y) {
     /*
                 -   -   -   -   -   -   > x
              | （x)(y)      (x+dirX)(y)
@@ -30,38 +39,44 @@ void shoot(Square **matrix, int x, int y) {
              |
              y
      */
+    p_matrix[x][y].times += 1;
 
-    // todo 加一个边界判断
-    matrix[x][y].times += 1;
-
-    int dirX = matrix[x][y].dirX;
-    int dirY = matrix[x][y].dirY;
+    int dirX = p_matrix[x][y].dirX;
+    int dirY = p_matrix[x][y].dirY;
     int newDirX, newDirY;
-    if (!matrix[x + dirX][y + dirY].solid) { // （x+dirX)(y+dirY)  空：原路返回
+    if (!p_matrix[x + dirX][y + dirY].solid) { // （x+dirX)(y+dirY)  空：继续前进
         newDirX = dirX;
         newDirY = dirY;
+        x = x + newDirX;
+        y = y + newDirY;
     } else { // （x+dirX)(y+dirY) 非空
-        if (!(matrix[x + dirX][y].solid xor matrix[x][y + dirY].solid)){ // (x+dirX)(y) 同或 (x)(y+dirY) ：原路返回
+        if (!(p_matrix[x + dirX][y].solid xor p_matrix[x][y + dirY].solid)) { // (x+dirX)(y) 同或 (x)(y+dirY) ：原路返回
             newDirX = -dirX;
             newDirY = -dirY;
+            x = x;
+            y = y;
         } else {
-            if(matrix[x + dirX][y].solid){ // (x+dirX)(y) 非空： x方向反，y方向不变
+            if (p_matrix[x + dirX][y].solid) { // (x+dirX)(y) 非空： x方向反，y方向不变
                 newDirX = -dirX;
                 newDirY = dirY;
-            } else {
+                x = x;
+                y = y+newDirY;
+            } else { // (x+dirX)(y) 非空： x方向不变，y方向反
                 newDirX = dirX;
-                newDirY = dirY;
+                newDirY = -dirY;
+                x = x + newDirX;
+                y = y;
             }
         }
     }
 
     // 改变下一个square属性
-    matrix[x+newDirX][y+newDirY].dirX = newDirX;
-    matrix[x+newDirX][y+newDirY].dirY = newDirY;
-
+    p_matrix[x][y].dirX = newDirX;
+    p_matrix[x][y].dirY = newDirY;
+    traceTrack.push_back(Trace{x, y, newDirX, newDirY});
 }
 
-void show_matrix(Square **i_matrix, int xLen, int yLen) {
+void show_matrix(Square **p_matrix, int xLen, int yLen) {
     for (int x = 0; x < xLen; ++x) {
         printf("\tx=%d", x);
     }
@@ -70,24 +85,56 @@ void show_matrix(Square **i_matrix, int xLen, int yLen) {
     for (int y = 0; y < yLen; ++y) {
         printf("y=%d", y);
         for (int x = 0; x < xLen; ++x) {
-            printf("\t %c", i_matrix[x][y].solid ? '*' : '0');
+            printf("\t %c", p_matrix[x][y].solid ? '*' : p_matrix[x][y].times+'0');
         }
         cout << endl;
     }
+    cout << endl;
 
 }
 
+void initialize(Square **p_matrix, int x, int y, string dir) {
+    int dirX, dirY;
+    if (dir[0] == 'N') {
+        dirX = 1;
+    } else {
+        dirX = -1;
+    }
+
+    if (dir[1] == 'E') {
+        dirY = 1;
+    } else {
+        dirY = -1;
+    }
+
+    p_matrix[x][y].dirX = dirX;
+    p_matrix[x][y].dirY = dirY;
+
+    traceTrack.push_back(Trace{x, y, dirX, dirY});
+}
+
+bool is_loop(Square **p_matrix, int x, int y){
+    // 判断开始循环
+    if(p_matrix[x][y].times>=1 and x>0 and x<m+1 and y>0 and y<n+1){ // 剔除边框
+        for (auto trace : traceTrack) {
+            // 位置与方向完全重合
+            if(trace.x==x and trace.y==y and trace.dirX==p_matrix[x][y].dirX and trace.dirY==p_matrix[x][y].dirY){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 
 int main() {
-    int n, m, k;
     cin >> n >> m >> k; // n rows(x), m columns(y), k black squares
 
-//    Square matrix[m+2][n+2];
-
-    auto **matrix = new Square *[m + 2];
+    auto **p_matrix = new Square *[m + 2];
     for (int i = 0; i < n + 2; i++) {
-        matrix[i] = new Square[n + 2];
+        p_matrix[i] = new Square[n + 2];
     }
+
 
     // 初始化matrix
     for (int x = 0; x < n + 2; ++x) {
@@ -97,7 +144,7 @@ int main() {
                 solid = 1;
             }
 
-            matrix[x][y] = Square{x, y, 0, 0, solid, 0};
+            p_matrix[x][y] = Square{x, y, 0, 0, solid, 0};
         }
     }
 
@@ -105,11 +152,28 @@ int main() {
     for (int i = 0; i < k; ++i) {
         int x, y;
         cin >> x >> y;
-        matrix[x + 1][y + 1] = Square{x + 1, y + 1, 0, 0, 1, 0};
+        p_matrix[x][y] = Square{x + 1, y + 1, 0, 0, 1, 0};
     }
 
-    show_matrix(matrix, n + 2, m + 2);
+    show_matrix(p_matrix, n + 2, m + 2);
 
-    cout << 0;
+    // 准备入射
+    int x, y, antiLoopCnt=0;
+    string dir;
+    cin >> x >> y >> dir;
+    initialize(p_matrix, x, y, dir);
+
+    // 入射
+    for (int i = 0; i < 40; ++i) {
+        if(!is_loop(p_matrix, x, y)){
+            shoot(p_matrix, x, y);
+            cout<<"#"<<i;
+            show_matrix(p_matrix, n+2, m+2);
+        } else {
+            cout<< i << endl;
+            break;
+        }
+
+    }
 
 }
