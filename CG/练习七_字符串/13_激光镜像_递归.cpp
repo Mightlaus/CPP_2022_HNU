@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -34,8 +33,6 @@ void shoot(int x, int y, int dirX, int dirY) {
     if (linear > cnt) { // 判断返回（linear>=2并不可以）
         return;
     } else {
-        newDirX;
-        newDirY;
         if (matrix[x][y] == 0) {
             cnt++;
             linear = 0;
