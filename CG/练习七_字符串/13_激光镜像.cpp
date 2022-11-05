@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <windows.h>
 
 using namespace std;
 
@@ -171,8 +172,11 @@ int main() {
     int i=0;
     while (1) {
         if (!is_loop(p_matrix, x, y)) {
+            i++;
             shoot(p_matrix, x, y);
-            cout<<"#"<<++i;
+//            Sleep(1000);
+//            system("cls");
+            cout<<"#"<<i;
             show_matrix(p_matrix, n+2, m+2);
         } else {
             cout<<i;
