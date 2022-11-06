@@ -2,47 +2,46 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
+/*
+ * 注意取词方法
+ * getline 取一行，但是如果之前有回车就会只取\0
+ * 这时候需要用cin.get()把回车吞掉
+ */
 using namespace std;
 
-vector<char> word_s;
-vector<char> word_b;
+string word_s("abcdefghijklmnopqrstuvwxyz");
+string word_b("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
 int main() {
     int n;
     cin >> n;
 
     for (int i = 0; i < n; ++i) {
+        cin.get();
         string str;
         getline(cin, str);
 
-        for (int i = 'A'; i <= 'Z'; ++i) {
-            word_b.push_back(i);
-        }
-        for (int i = 'a'; i <= 'z'; ++i) {
-            word_s.push_back(i);
-        }
+        vector<int> have(26, 0);
 
-        vector<bool> have(word_b.size(), 0);
         for (auto x: str) {
-            for (int i = 0; i < word_b.size(); ++i) {
-                if (x == word_b[i] or x == word_s[i]) {
-                    have[i] = 1;
-                }
+            if(word_b.find(x)!=-1){
+                have[x-'A'] += 1;
+            } else if(word_s.find(x)!=-1){
+                have[x-'a'] += 1;
             }
         }
 
-        if (count(have.begin(), have.end(), 1) == have.size()) {
-            cout << "Yes" << endl;
-        } else {
+        if (count(have.begin(), have.end(), 0)) {
             cout << "No";
-            for (int i = 0; i < have.size() - 1; ++i) {
+            for (int i = 0; i < have.size(); ++i) {
                 if (have[i] == 0) {
                     cout << " " << word_b[i];
                 }
             }
-        }
+        } else {
+            cout << "Yes";
 
+        }
         cout<<endl;
     }
 }

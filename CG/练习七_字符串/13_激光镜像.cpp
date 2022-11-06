@@ -10,7 +10,7 @@ using namespace std;
          |
          |
          |
-         y(m) N
+         y(m) S
  */
 
 int n, m, k;
@@ -112,7 +112,6 @@ void initialize(Square **p_matrix, int x, int y, string dir) {
 
     p_matrix[x][y].dirX = dirX;
     p_matrix[x][y].dirY = dirY;
-
 }
 
 bool begin_loop(Square **p_matrix, int x, int y) {
