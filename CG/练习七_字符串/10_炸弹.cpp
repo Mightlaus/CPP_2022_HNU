@@ -7,6 +7,11 @@
  * 穷举
  */
 
+/*
+ * 行列分开
+ * 只允许一行多于一个
+ */
+
 using namespace std;
 
 bool match(vector<int> wall, int row, int col) {

@@ -4,7 +4,9 @@
 #include <algorithm>
 
 using namespace std;
-
+/*
+ * 正着减，倒着找
+ */
 
 int main() {
     string str1, str2;
