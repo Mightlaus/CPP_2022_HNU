@@ -23,12 +23,10 @@
     编写函数升序合并有序链表
  */
 #include  <iostream>
+#include <vector>
+#include <algorithm>
 /*
  * 这全部都是含有头结点的链表
- * 考虑好新节点在什么时候生成：链表1、2没有到头的时候，并且生成的时候把旧节点next指向新节点
- * 新节点怎么赋值：比较链表1、2当前节点大小，然后把data传入新节点data，更新链表1或2的当前节点
- * 这就需要三个指针，分别指向链表1、2、new的当前节点
- * 结束标志：链表1、2当前节点全为空
  * 注意新增节点后要对当前节点更新：this->next = newNode; this = this->next;
  */
 using namespace std;
@@ -45,36 +43,26 @@ PtrToLNode mergeList(PtrToLNode head1, PtrToLNode head2) {
     // 先创建新链表的头节点
     auto mergedList = new LNode{0, NULL};
 
-    // 给定三个指针，分别指向待合并链表1，待合并链表2，新链表的当前节点
-    PtrToLNode thisNode1=head1->next, thisNode2=head2->next, thisNew=mergedList;
+    vector<int> vec;
 
-
-    // 开始判断
-    while(thisNode1 || thisNode2){
-        // 生成下一个新node放入新链表中
-        thisNew->next = new LNode{-11, NULL};
-        thisNew = thisNew->next;
-
-        // 如果链表1链表2都还没结束
-        if(thisNode1 && thisNode2) {
-            if (thisNode1->data < thisNode2->data) {
-                thisNew->data = thisNode1->data;
-                thisNode1 = thisNode1->next;
-            } else {
-                thisNew->data = thisNode2->data;
-                thisNode2 = thisNode2->next;
-            }
-        } else if(thisNode1){ //链表2结束
-            thisNew->data = thisNode2->data;
-            thisNode2 = thisNode2->next;
-        } else if(thisNode2){ // 链表1结束
-            thisNew->data = thisNode2->data;
-            thisNode2 = thisNode2->next;
-        } else {
-            //全部结束
-            break;
-        }
+    for (auto x = head1->next; x; x=x->next){
+        vec.push_back(x->data);
     }
+    for(auto x=head2->next; x; x=x->next){
+        vec.push_back(x->data);
+    }
+
+    sort(vec.begin(), vec.end());
+
+    PtrToLNode thisNode = mergedList;
+    for(auto x:vec){
+        auto node = new LNode{-1, NULL};
+        thisNode->next = node;
+        thisNode = thisNode->next;
+        thisNode->data = x;
+    }
+
+
     return mergedList;
     // end
 }
