@@ -58,7 +58,7 @@ int main() {
     student *head = NULL; //  链表头指针
     FILE *fp;
 
-    fp = fopen("grade.bin", "rb"); //  打开二进制文件，用于读写以及添加记录
+    fp = fopen("grade.bin", "r+"); //  打开二进制文件，用于读写以及添加记录
     head = ReadFile(fp, head, n);
     display(head);
     fclose(fp);
@@ -102,7 +102,7 @@ student *ReadFile(FILE *fp, student *head, int &n) //本函数将调用fread函�
 void WriteFile(FILE *fp, student *head) //本函数将调用fwrite函数写数据块，这个函数非常有用
 {
     while (head) {
-        fwrite(head, sizeof(student), 1, fp); //  将缓冲区head中的内容(数据块)写入文件中
+        fwrite(head->next, sizeof(student), 1, fp); //  将缓冲区head中的内容(数据块)写入文件中
         head = head->next;
     }
 }
