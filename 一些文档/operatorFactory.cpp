@@ -7,6 +7,12 @@ using namespace std;
  *
  * 类的【成员函数操作符】第一个参数（被操作数）默认为类对象(*this)，不需要填
  * 类中声明的【友元函数操作符】实质上与类无关， 操作数与被操作数都需要填
+ *
+ * 注意函数返回引用与返回值的区别：
+ *  返回引用：返回的内容应该是函数传入的引用参数。用于修改传入的参数然后再返回它
+ *      myClass &func(myClass &par1, myClass & par2){return par1}
+ *  返回值：返回的内容应该是函数执行过程中产生的东西。用于根据传入的参数计算出新的再返回这个新的
+ *      myClass &func(){myClass a; return a}
  */
 
 class Myclass {

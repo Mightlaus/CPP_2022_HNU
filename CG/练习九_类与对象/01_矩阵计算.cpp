@@ -32,6 +32,17 @@
        接下来一行(如果有），如果 B 的行列式存在，则输出一个整数，表示 B 的行列式的值。
  */
 
+/*
+ * 在使用类的方法时注意返回类型：
+ * 类对象——先创建再计算处理
+ * 输入对象——引用
+ * 构造函数——默认已经创建了空的类对象然后自己只需要初始化
+ *
+ * 注意在删除m行n列时，mn从0开始计数
+ * 其实除了输入以外，row & col 都是从0开始计数的
+ */
+
+
 #include  <iostream>
 #include  <cstdlib>
 
@@ -70,7 +81,22 @@ matrix::matrix(int &M, int &N) {
 matrix::matrix(matrix &A, int &&m, int &n)      //从矩阵A中删除第m行第n列后得到新的矩阵
 {
     // begin
+    rows = A.rows-1;
+    cols = A.cols-1;
+    p = new int *[rows];
+    for (int i = 0; i < rows; ++i) {
+        p[i] = new int [cols];
+    }
+    for (int i = 0; i < A.rows; ++i) {
+        for (int j = 0; j < A.cols; ++j) {
+            int ii=i, jj=j;
+            if(ii==m or jj==n) continue;
+            if(ii>m) ii--;
+            if(jj>n) jj--;
 
+            p[ii][jj] = A.p[i][j];
+        }
+    }
     // end
 }
 
@@ -86,7 +112,11 @@ matrix matrix::multi(int x)      //  数乘
     matrix tmp(rows, cols);
 
     // begin
-
+    for (int i = 0; i < this->rows; ++i) {
+        for (int j = 0; j < this->cols; ++j) {
+            tmp.p[i][j] = p[i][j] * x;
+        }
+    }
     // end
 
     return tmp;
@@ -96,7 +126,16 @@ void matrix::out()        //输出矩阵
 {
     /*  逐行输出，数据间用空格分隔  */
     // begin
-
+    for (int i = 0; i < this->rows; ++i) {
+        for (int j = 0; j < this->cols; ++j) {
+            if(j>0){
+                cout<<" "<<p[i][j];
+            } else {
+                cout<<p[i][j];
+            }
+        }
+        cout<<endl;
+    }
     // end
 
 }
@@ -113,7 +152,11 @@ matrix matrix::operator+(matrix &another)  //重载加法运算实现矩阵相�
     matrix tmp(rows, cols);
     /*  矩阵对应位置元素相加  */
     // begin
-
+    for (int i = 0; i < this->rows; ++i) {
+        for (int j = 0; j < this->cols; ++j) {
+            tmp.p[i][j] = p[i][j] + another.p[i][j];
+        }
+    }
     // end
 
     return tmp;
@@ -126,9 +169,12 @@ matrix matrix::operator*(matrix &another)    //重载乘法运算实现矩阵相
         for (int j = 0; j < another.cols; j++) {
             /*  计算A矩阵的第i行与B矩阵的第j列元素对应相乘后之和，作为新矩阵的第i行第j列元素的值  */
             // begin
-
+            int cnt=0;
+            for (int k = 0; k < this->cols; ++k) {
+                cnt += p[i][k] * another.p[k][j];
+            }
+            tmp.p[i][j] = cnt;
             // end
-
         }
     }
     return tmp;
