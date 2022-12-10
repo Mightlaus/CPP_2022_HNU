@@ -58,7 +58,7 @@ int main() {
     student *head = NULL; //  链表头指针
     FILE *fp;
 
-    fp = fopen("grade.bin", "r+"); //  打开二进制文件，用于读写以及添加记录
+    fp = fopen("grade.bin", "rb"); //  打开二进制文件，用于读写以及添加记录
     head = ReadFile(fp, head, n);
     display(head);
     fclose(fp);
@@ -66,7 +66,7 @@ int main() {
     head = input(head, n);
     head = LinkSort(head, n);
 
-    fp = fopen("grade.bin", "wb");
+    fp  =  fopen("grade.bin",  "wb");
     WriteFile(fp, head);
     fclose(fp);
 
@@ -102,7 +102,7 @@ student *ReadFile(FILE *fp, student *head, int &n) //本函数将调用fread函�
 void WriteFile(FILE *fp, student *head) //本函数将调用fwrite函数写数据块，这个函数非常有用
 {
     while (head) {
-        fwrite(head->next, sizeof(student), 1, fp); //  将缓冲区head中的内容(数据块)写入文件中
+        fwrite(head, sizeof(student), 1, fp); //  将缓冲区head中的内容(数据块)写入文件中
         head = head->next;
     }
 }
@@ -116,7 +116,7 @@ void display(student *head) {
         printf("Sex: %c\n", p->sex);
         printf("Age: %d\n", p->age);
         printf("Scores: %.6f %.6f\n", p->chinese, p->computer);
-        printf("\n");
+        cout<<endl;
         p = p->next;
         //  输出链表节点内容
     }
@@ -131,23 +131,32 @@ student *input(student *head, int &n) {
 
     while (1) {
         printf("Input  continue(y/n)?");
+        cout<<endl;
+
         if (getchar() != 'y')
             break;
 
         student *p = new student;
 
         printf("No:  ");
+        cout<<endl;
+
         scanf("%d", &p->no);
         getchar();
-        printf("Name:  ");
+        printf("Name:  ");        cout<<endl;
+
         gets(p->name);
-        printf("Sex(M/F):  ");
+        printf("Sex(M/F):  ");        cout<<endl;
+
         p->sex = getchar();
-        printf("Age:  ");
+        printf("Age:  ");        cout<<endl;
+
         scanf("%d", &p->age);
-        printf("Chinese  score:  ");
+        printf("Chinese  score:  ");        cout<<endl;
+
         scanf("%f", &p->chinese);
-        printf("Computer  score:  ");
+        printf("Computer  score:  ");        cout<<endl;
+
         scanf("%f", &p->computer);
         p->next = NULL;
         getchar();
