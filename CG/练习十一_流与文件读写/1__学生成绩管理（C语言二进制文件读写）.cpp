@@ -58,7 +58,7 @@ int main() {
     student *head = NULL; //  链表头指针
     FILE *fp;
 
-    fp = fopen("grade.bin", "rb"); //  打开二进制文件，用于读写以及添加记录
+    fp = fopen("grade.bin", "rb+"); //  打开二进制文件，用于读写以及添加记录
     head = ReadFile(fp, head, n);
     display(head);
     fclose(fp);
